@@ -34,6 +34,7 @@ module.exports = {
 			layouts: join(__dirname, 'src', 'layouts'),
 			reducers: join(__dirname, 'src', 'reducers'),
 			store: join(__dirname, 'src', 'store'),
+			utils: join(__dirname, 'src', 'utils'),
 		},
 	},
 
