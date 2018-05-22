@@ -1,9 +1,12 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {
+	DefinePlugin,
 	NoEmitOnErrorsPlugin,
 	WatchIgnorePlugin
 } = require('webpack');
 const autoprefixer = require('autoprefixer');
+const { join } = require('path');
+const { NODE_ENV } = process.env;
 
 module.exports = {
 	mode: 'development',
@@ -16,7 +19,7 @@ module.exports = {
 	devtool: 'eval',
 
 	output: {
-		path: __dirname + '/dist',
+		path: join(__dirname, 'dist'),
 		filename: '[name].js'
 	},
 
@@ -24,7 +27,14 @@ module.exports = {
 		modules: [
 			'./src',
 			'node_modules'
-		]
+		],
+		alias: {
+			components: join(__dirname, 'src', 'components'),
+			containers: join(__dirname, 'src', 'containers'),
+			layouts: join(__dirname, 'src', 'layouts'),
+			reducers: join(__dirname, 'src', 'reducers'),
+			store: join(__dirname, 'src', 'store'),
+		},
 	},
 
 	module: {
@@ -83,6 +93,9 @@ module.exports = {
 	},
 
 	plugins: [
+		new DefinePlugin({
+			__DEV__: NODE_ENV === 'development'
+		}),
 		new NoEmitOnErrorsPlugin(),
 		new WatchIgnorePlugin(['./node_modules']),
 		new HtmlWebpackPlugin({

@@ -1,11 +1,12 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from 'store/createStore';
 import CoreLayout from '../../layouts/CoreLayout';
 
 const AppContainer = () => (
-	<div>
-		<h1>Hey there, Hello World</h1>
+	<Provider store={store}>
 		<CoreLayout />
-	</div>
+	</Provider>
 );
 
 export default AppContainer;
