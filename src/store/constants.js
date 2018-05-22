@@ -4,3 +4,4 @@ export const START = '_START';
 export const SUCCESS = '_SUCCESS';
 export const ERROR = '_ERROR';
 export const FETCH_GIF = 'FETCH_GIF';
+export const UPDATE_CURRENT_QUERY = 'UPDATE_CURRENT_QUERY';
