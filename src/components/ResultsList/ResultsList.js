@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ResultsItem from 'components/ResultsItem';
+import Spinner from 'components/Spinner';
 import isArrayValid from 'utils/isArrayValid';
 import isArrayEmpty from 'utils/isArrayEmpty';
 import shimToJS from 'utils/shimToJS';
-import ResultsItem from '../ResultsItem';
 
 const ResultsList = (props) => {
 	const {
