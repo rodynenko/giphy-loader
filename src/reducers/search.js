@@ -57,6 +57,7 @@ const actionHandlers = {
 
 		return state
 			.set('isFetching', false)
+			.set('currentQuery', query)
 			.setIn(['results', query], fromJS(payload.data));
 	},
 	[FETCH_GIF + ERROR]: state => state.set('isFetching', false),

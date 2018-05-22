@@ -1,5 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setCurrentQuery } from 'reducers/search';
 
-const SearchForm = () => (<div />);
+class SearchForm extends Component {
+	state = {
+		query: '',
+		lastQueries: [],
+	};
 
-export default SearchForm;
+	componentDidMount() {
+		this.props.setCurrentQuery('fun cat');
+	}
+
+	render() {
+		return (
+			<div />
+		);
+	}
+}
+
+export default connect(null, {
+	setCurrentQuery,
+})(SearchForm);

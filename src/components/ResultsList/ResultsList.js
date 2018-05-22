@@ -7,6 +7,7 @@ import Spinner from 'components/Spinner';
 import isArrayValid from 'utils/isArrayValid';
 import isArrayEmpty from 'utils/isArrayEmpty';
 import shimToJS from 'utils/shimToJS';
+import './ResultsList.scss';
 
 const ResultsList = (props) => {
 	const {
@@ -14,6 +15,8 @@ const ResultsList = (props) => {
 		items,
 	} = props;
 	const itemsList = shimToJS(items);
+
+	console.log(itemsList);
 
 	return (
 		<div className='results-list'>

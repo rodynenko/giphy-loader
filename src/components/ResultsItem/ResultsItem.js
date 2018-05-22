@@ -5,30 +5,32 @@ class ResultsItem extends Component {
 	constructor(props) {
 		super(props);
 
-		const { downsized_still: { url } } = props;
+		const { images: { downsized_still: { url } } } = props;
 
-		this.state({
+		this.state = {
 			imgSrc: url
-		});
+		};
 	}
 
 	componentDidMount() {
-		this.originalImage = new Image();
+		const { images: { original: { url } } } = this.props;
 
+		this.originalImage = new Image();
+		this.originalImage.src = url;
 		this.originalImage.addEventListener('load', this.handleGifLoad);
 	}
-
-	handleGifLoad = () => {
-		const { original: { url } } = this.props;
-
-		this.setState({ imgSrc: url });
-	};
 
 	componentWillUnmount() {
 		if (this.originalImage) {
 			this.originalImage.removeEventListener('load', this.handleGifLoad);
 		}
 	}
+
+	handleGifLoad = () => {
+		const { images: { original: { url } } } = this.props;
+
+		this.setState({ imgSrc: url });
+	};
 
 	render() {
 		const { imgSrc } = this.state;
