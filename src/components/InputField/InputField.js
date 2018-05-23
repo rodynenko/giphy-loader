@@ -18,9 +18,23 @@ class InputField extends Component {
 		this.setState({ isOpen: false });
 	}
 
+	handleOfferClick = value => () => {
+		const { onPrevSearch } = this.props;
+
+		onPrevSearch(value);
+	};
+
 	render() {
 		const { isOpen } = this.state;
-		const { lastQueries, onChange, value, error } = this.props;
+		const {
+			lastQueries,
+			onChange,
+			value,
+			error,
+			disabled,
+			placeholder
+		} = this.props;
+		const isRecommendationOpen = isOpen && isArrayValid(lastQueries);
 
 		return (
 			<div className='input-field'>
@@ -29,15 +43,17 @@ class InputField extends Component {
 					type='text'
 					className='input-field__input'
 					onFocus={this.handleFocus}
-					onBlue={this.handleBlur}
+					onBlur={this.handleBlur}
 					onChange={onChange}
+					disabled={disabled}
+					placeholder={placeholder}
 				/>
 				{
 					error &&
 					<div className='input-field__error'>{error}</div>
 				}
 				{
-					isOpen && isArrayValid(lastQueries) &&
+					isRecommendationOpen &&
 					<div className='input-field__list'>
 						{lastQueries.map(q => (
 							<div

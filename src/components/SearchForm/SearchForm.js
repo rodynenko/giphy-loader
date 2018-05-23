@@ -6,17 +6,21 @@ import InputField from 'components/InputField';
 class SearchForm extends Component {
 	state = {
 		query: '',
-		error: '',
+		error: null,
 		lastQueries: [],
 	};
 
 	handleQueryRequest = (e) => {
-		e.preventDefault();
-		const { query } = this.state;
+		if (e) e.preventDefault();
+		const { query, lastQueries } = this.state;
 		const { setCurrentQuery } = this.props;
 
-		if (query.trim().lenght > 0) {
-			setCurrentQuery(query);
+		if (query.trim().length > 0) {
+			const newLastQueries = [query, ...lastQueries];
+
+			this.setState({ lastQueries: newLastQueries }, () => {
+				setCurrentQuery(query);
+			});
 		} else {
 			this.setState({
 				error: 'This field is required',
@@ -28,13 +32,19 @@ class SearchForm extends Component {
 		const { error } = this.state;
 
 		if (error) {
-			this.setState({ error: '' });
+			this.setState({ error: null });
 		}
 	}
 
 	handleInputChange = (ev) => {
-
+		this.setState({ query: ev.target.value });
 	};
+
+	handlePrevSearch = (value) => {
+		this.setState({ query: value }, () => {
+			this.handleQueryRequest();
+		});
+	}
 
 	render() {
 		const { query, error, lastQueries } = this.state;
@@ -52,6 +62,7 @@ class SearchForm extends Component {
 					onFocus={this.handleInputFocus}
 					placeholder='Search query'
 					disabled={isFetching}
+					lastQueries={lastQueries}
 				/>
 				<button
 					type='submit'

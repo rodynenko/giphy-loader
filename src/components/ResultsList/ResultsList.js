@@ -16,8 +16,6 @@ const ResultsList = (props) => {
 	} = props;
 	const itemsList = shimToJS(items);
 
-	console.log(itemsList);
-
 	return (
 		<div className='results-list'>
 			{isFetching && <Spinner />}
