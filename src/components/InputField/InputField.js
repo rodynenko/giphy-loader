@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
+import { func, string, arrayOf, bool } from 'prop-types';
 import isArrayValid from 'utils/isArrayValid';
 import closest from 'utils/closest';
 import './InputField.scss';
 
 class InputField extends Component {
+	static propTypes = {
+		onFocus: func.isRequired,
+		onPrevSearch: func.isRequired,
+		lastQueries: arrayOf(string).isRequired,
+		onChange: func.isRequired,
+		value: string.isRequired,
+		error: string,
+		disabled: bool,
+		placeholder: string,
+	};
+
+	static defaultProps = {
+		error: null,
+		disabled: false,
+		placeholder: '',
+	}
+
 	state = {
 		isOpen: false,
 	};

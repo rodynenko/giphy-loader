@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
+import { shape, string } from 'prop-types';
 import './ResultsItem.scss';
 
 class ResultsItem extends Component {
+	static propTypes = {
+		images: shape({
+			downsized_still: shape({
+				url: string,
+			}),
+			original: shape({
+				url: string,
+			}),
+		}).isRequired,
+		title: string.isRequired,
+	};
+
 	constructor(props) {
 		super(props);
 
@@ -34,13 +47,13 @@ class ResultsItem extends Component {
 
 	render() {
 		const { imgSrc } = this.state;
-		const { caption } = this.props;
+		const { title } = this.props;
 
 		return (
 			<img
 				className='results-item'
 				src={imgSrc}
-				alt={caption}
+				alt={title}
 			/>
 		);
 	}

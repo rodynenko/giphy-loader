@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import { bool, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { setCurrentQuery } from 'reducers/search';
 import InputField from 'components/InputField';
 import './SearchForm.scss';
 
 class SearchForm extends Component {
+	static propTypes = {
+		setCurrentQuery: func.isRequired,
+		isFetching: bool.isRequired,
+	};
+
 	state = {
 		query: '',
 		error: null,
@@ -87,7 +93,7 @@ class SearchForm extends Component {
 }
 
 export default connect(state => ({
-	isFetching: state.search.isFetching,
+	isFetching: state.search.get('isFetching'),
 }), {
 	setCurrentQuery,
 })(SearchForm);
