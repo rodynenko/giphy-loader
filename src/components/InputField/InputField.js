@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import isArrayValid from 'utils/isArrayValid';
+import closest from 'utils/closest';
 import './InputField.scss';
 
 class InputField extends Component {
@@ -7,21 +8,32 @@ class InputField extends Component {
 		isOpen: false,
 	};
 
+	componentWillUnmount() {
+		window.removeEventListener('click', this.handleClickOut);
+	}
+
+	handleClickOut = (ev) => {
+		const parent = closest(ev.target, 'input-field');
+
+		if (!parent) {
+			this.setState({ isOpen: false });
+		}
+	};
+
 	handleFocus = () => {
 		const { onFocus } = this.props;
 
 		onFocus();
 		this.setState({ isOpen: true });
-	}
-
-	handleBlur = () => {
-		this.setState({ isOpen: false });
+		window.addEventListener('click', this.handleClickOut);
 	}
 
 	handleOfferClick = value => () => {
 		const { onPrevSearch } = this.props;
 
-		onPrevSearch(value);
+		this.setState({ isOpen: false }, () => {
+			onPrevSearch(value);
+		});
 	};
 
 	render() {
@@ -43,7 +55,6 @@ class InputField extends Component {
 					type='text'
 					className='input-field__input'
 					onFocus={this.handleFocus}
-					onBlur={this.handleBlur}
 					onChange={onChange}
 					disabled={disabled}
 					placeholder={placeholder}

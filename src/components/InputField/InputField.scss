@@ -1,0 +1,30 @@
+.input-field {
+	position: relative;
+
+	&__error {
+		position: absolute;
+		top: 100%;
+		margin-top: 5px;
+		color: red;
+		z-index: 1;
+	}
+
+	&__list {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		background-color: white;
+
+		&-item {
+			padding: 5px 10px;
+			border-top: 1px solid grey;
+			cursor: pointer;
+			transition: color .2s ease-in-out;
+
+			&:hover {
+				color: blue;
+			}
+		}
+	}
+}
